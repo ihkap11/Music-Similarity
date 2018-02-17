@@ -20,17 +20,17 @@ def parse_arguments():
 
     return parser.parse_args()
 
-def mel_spectrograms(inputFile, args):
+def mel_spectrograms(inputFile, outputFile,lowerLimit, upperLimit, n_mels, dB, plot, fmin, fmax):
     y, sr = librosa.load(inputFile)
     length = len(y)/sr
     print "Length of Audio File: {}".format(length)
     
-    if args.upperLimit is None:
-        args.upperLimit = length
-    print "Range -- [{}(s) - {}(s)]".format(args.lowerLimit, args.upperLimit)
-    y_sample = y[max(0,int(args.lowerLimit)) * sr : min(int(args.upperLimit) * sr, len(y))]
-    S = librosa.feature.melspectrogram(y_sample, sr=sr, n_mels=128)
-    if args.dB:
+    if upperLimit is None:
+        upperLimit = length
+    print "Range -- [{}(s) - {}(s)]".format(lowerLimit, upperLimit)
+    y_sample = y[max(0,int(lowerLimit)) * sr : min(int(upperLimit) * sr, len(y))]
+    S = librosa.feature.melspectrogram(y_sample, sr=sr, n_mels=n_mels, fmin=fmin, fmax=fmax)
+    if dB:
         log_S = librosa.power_to_db(S, ref=np.max)
     else:
         log_S = S
@@ -40,8 +40,8 @@ def mel_spectrograms(inputFile, args):
     plt.title('Mel Spectrogram')
     plt.colorbar(format='%+02.0f dB')
     plt.tight_layout()
-    plt.savefig(args.output)
-    if args.plot:
+    plt.savefig(outputFile)
+    if plot:
         plt.show()
 
 if __name__ == "__main__":
@@ -53,4 +53,4 @@ if __name__ == "__main__":
     if args.output is None:
         raise Exception("Output Path cannot be Empty")
 
-    mel_spectrograms(args.input, args)
+    mel_spectrograms(args.input, args.output, args.lowerLimit, args.upperLimit, args.nMELS, args.dB, args.plot, args.minFrequency, args.maxFrequency)
