@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MUSIC SIMILARITY</title>
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   
+<style>
+#loading {
+    position: absolute; width: 100%; height: 100%; background: url('loader.gif') no-repeat center center;
+}</style>
+
+
+
+</head>
+
+
+<body>
+ 
+
+ <br /><br />
+  <div class="container" >
+   
+    <legend>
+<h2 align="center"><b><i>MUSIC RECOMMENDATION SYSTEM</i></b></h2>
+          
+       <small ><i>A demo concept by DataMonk.Co</i></small></h3></legend><br /><br />
+
+        
+
+<br/>
+
+
+    <div class="container">
+        <legend>
+            <h3>UPLOAD SONG<br>
+       <small>Files must be mp3.</small></h3></legend>
+
+          <form  id="upload-file" method = "post" enctype="multipart/form-data" >
+           
+                <div class="form-group">
+                    <label class="col-sm-5">File</label>
+                    <div class="container">
+                        <input type="file" name="audio_file" placeholder="file" class="form-control" required="true">
+                    </div>
+                </div>
+               	<div class="form-group">
+                   <div class="col-sm-4 col-sm-offset-15">
+                   <button id="upload-file-btn" type="button" align="centre">Recommend me a playlist!</button>		
+                   
+
+
+
+
+
+</div>
+                </div>
+          
+	</form>
+	 </br >
+
+</br>
+</br>
+</br>
+
+
+<legend>
+<div id ="genre">
+
+</div>
+</legend>
+
+
+
+
+	<table class="table table-bordered">
+              
+ 		 <thead>
+                 
+   			                  
+                 	<td><b>Here's your personalized playlist.</b></td>
+</tr>
+ 
+
+  		 </thead>
+            
+  		 <tbody id="table">
+
+</tbody>
+          
+	</table>
+ 
+<div id="loading"></div>
+      
+    
+
+</div>
+
+ <script type="text/javascript">
+//helper function
+function createTable(json_data){
+var data = JSON.parse(json_data);
+console.log(json_data);
+		alert("Your recommendations are getting ready!!");
+		document.getElementById("genre").innerHTML = "<p><b>Predicted Genre: </b>" + data.genre +"</p>";
+		var len = 6;
+                var txt = "";
+                if(len > 0){
+                    for(var i=0;i<len;i++){
+                        if(data.data[i]){
+                            txt += "<tr><td>"+data.data[i]+"</td></tr>";
+                        }
+                    }
+                    if(txt != ""){
+                        $("#table").append(txt).removeClass("hidden");
+                    }
+                }
+	$("#table").html()
+            }
+</script>
+<script type="text/javascript">
+ 	
+
+
+
+
+
+
+
+// upload!
+	    $("#upload-file-btn").click(function(e){
+                    e.preventDefault();
+		   
+		   var form_data = new FormData($('#upload-file')[0])
+		   var myData= {};
+		   alert("Your song is being uploaded");
+                    $.ajax({
+                        type: 'POST',
+			async: true,
+                        url: "/recommendations",
+                        data: form_data,
+			crossDomain: true,
+			processData: false,
+
+			contentType: false,
+ 
+			mimeType: "multipart/form-data",
+ 
+                    
+	success: function(json_data) {
+                 
+ if(json_data){
+createTable(json_data);
+$('#loading').hide();
+}},
+                        error: function() {
+                            $(this).html("error!");
+$('#loading').hide();
+                        }
+		
+
+                    });
+                });
+
+
+   
+        </script>
+</body>
+
+</html>
