@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>POPULARITY PREDICTOR</title>
+    <title>POPULARITY PREDICTION</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{url_for('static', filename="css/main.css")}}"/>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+
+<body>
+ <section class = "banner full"> 
+  <article class = "visible top" style = "background-image: url({{url_for('static', filename='pop5.jpg')}});">
+  <img src="{{url_for('static', filename='pop5.jpg')}}" alt="">
+    <div class="inner">
+      <header>
+      <p>A demo concept by <a href="www.datamonk.co">DATAMONK.CO</a></p>
+      <bold><font size="12"  >SONG POPULARITY </font></bold>
+      </header>
+    </div>
+  </article>
+</section>
+<br /><br />
+
+<!-- FIRST SECTION -->
+  <section id="one" class="wrapper style2">
+    <div class="inner">
+      <div class="box">
+        <div class="box">
+          <div class = "content">
+            <div class="image fit" >
+              <img src="{{url_for('static', filename='pop6.jpg')}}" alt="" >
+            </div>
+            <br>
+
+            <h2 class = "align-center"> POPULARITY PREDICTOR </h2>
+            <form  id="upload-file" method = "post" enctype="multipart/form-data" >
+              <div class = "align-center" >
+                  <label >Please enter the name of the song.</label>
+                  <input class="form-control" name = "song_name"  type = "text" align = "align-center" style="text-align:center; " placeholder="Enter Song Name" required="true">
+                  <label >Please enter the artist name of the song.</label>
+                  <input class="form-control" name = "artist_name"  type = "text" align = "align-center" style="text-align:center; " placeholder="Enter Main Artist Name" required="true">
+
+                  <div class="form-group"><br>
+                       <div id="find-popularity"  align = "align-center"class="button alt" >
+                        Predict Popularity
+                       </div> 
+                        <div id="loading" style="display:none;">
+                              <img src="{{url_for('static', filename='loader.gif')}}" alt="" />
+                              <div id = "text"></div>
+                              
+                            </div>
+
+                            
+
+                  </div>
+              </div>          
+            </form>
+            </br >
+            <div class=box>
+                <div class="content" class = "align-center">
+                  <div style="width: 100%; display: table;">
+                    <div style="display: table-row">
+                        <div class = "align-center" style ="padding-left: 50px;" id= "youtube-link" style="width: 600px; display: table-cell;"></div>
+                            <div style="width: 100%; display: table;">
+                                  <div style="display: table-row">
+                                    <div   id="popularity" class="col-sm-5" style="width: 600px;  style="vertical-align: top; display: table-cell;">
+                                    </div>
+                                    <div  style="vertical-align: top; display: table-cell;class="content" class = "align-center">
+                                      <img id="class_image" src = "" height="" width="" >
+                                    </div>
+                      
+                                  </div >
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                <div class = "align-center" id ="chart_div" style="padding-left:120px; width: 800px; height: 200px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+
+ <style>
+        #loading 
+        {position: absolute; width: 100%; height: 100%; background: url("{{url_for('static', filename='loader.gif')}}") no-repeat center center;}
+  </style>
+
+
+
+  <script type="text/javascript">
+        function outputPopularity(json_data)
+        {console.log(json_data);
+        var data = JSON.parse(json_data);
+         alert("Your popularity prediction is ready!!");
+         document.getElementById("popularity").innerHTML = "<p><b>Spotify Result: " + data.true_val +"</p>"+"<p>Predicted Result: " + data.predicted_regressor +"</p>"+ "<p>Predicted Class: " + data.predicted_class +"</p></b>";
+        }
+      </script> 
+
+  <script type="text/javascript">
+        function outputYoutubeLink(url)
+        {
+         document.getElementById("youtube-link").innerHTML = '<iframe src='+'"'+ url +'"'+ 'frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">'+"</iframe>"
+        }
+      </script> 
+
+    <script type="text/javascript">
+        function outputClassImage(pclass)
+        {
+          if (pclass == 1)
+           { document.getElementById("class_image").src = "{{url_for('static', filename="blockbuster.jpg")}}";
+            document.getElementById("class_image").height= "200";
+            document.getElementById("class_image").width = "200";}
+          else if (pclass == 2)
+            {document.getElementById("class_image").src = "{{url_for('static', filename="moneymaker.jpg")}}";
+              document.getElementById("class_image").height= "200";
+            document.getElementById("class_image").width = "200";}
+          else 
+            {document.getElementById("class_image").src = "{{url_for('static', filename="needswork.jpg")}}";document.getElementById("class_image").height= "100";
+            document.getElementById("class_image").width = "200";}
+
+        }
+      </script> 
+      
+      <!-- 
+      $(document).ready(function () {
+   $('#play-video').on('click', function (ev) {
+
+      $("#video")[0].src += "&autoplay=1";
+      ev.preventDefault();
+
+   });
+});
+      //# sourceURL=pen.js
+    
+ -->
+
+
+  <script>
+                              var myVar = setInterval(process1, 1000);
+                              function process1() {
+                                  document.getElementById("text").innerHTML = "Uploading your query...";
+                              }
+
+                              var myVar = setInterval(process2, 1000);
+                              function process2() {
+                                  document.getElementById("text").innerHTML = "Processing your query...";
+                              }
+
+
+                              var myVar = setInterval(process3, 500);
+                              function process3() {
+                                  document.getElementById("text").innerHTML = "Working on your predictions...";
+                              }
+
+
+                              var myVar = setInterval(process4, 500);
+                              function process4() {
+                                  document.getElementById("text").innerHTML = "Finalizing your predictions...";
+                              }
+
+                              
+
+                              </script>
+                                    
+
+
+ <script type="text/javascript">
+        function displayError(error)
+        {
+         alert(error);
+        }
+      </script> 
+      <script type="text/javascript">
+        $("#find-popularity").click(function(e)
+          { e.preventDefault();
+            alert("Your data is being processed");          
+            var form_data = new FormData($('#upload-file')[0])
+            var myData= {};
+            $('#loading').show();
+            process1();
+           
+            $.ajax({
+              type: 'POST',
+              async: true,
+              url: "/predictPopularity",
+              data: form_data,
+              crossDomain: true,
+              processData: false,
+              contentType: false,
+              mimeType: "multipart/form-data",
+              success: function(json_data)
+              {if(json_data)
+                { 
+                  process1();
+                   process2();
+            
+                console.log(json_data);
+                 var array = JSON.parse(json_data);
+                 console.log(array.predicted_class);
+                  process2();
+                 if (array.error == 0)
+                 {
+                 google.charts.load('current', {packages: ['corechart', 'bar']});
+                 google.charts.setOnLoadCallback(drawBasic);
+                  function drawBasic() {
+                        var plot = array.plot_features
+                        var data = google.visualization.arrayToDataTable([
+                          ['Features', 'Value', { role: 'style' } ],
+                          plot[0],
+                          plot[1],
+                          plot[2]
+                        ]);
+                        var options = {
+                          title: 'Audio Features for the Input Song',
+                          hAxis: {
+                            title: 'Features',
+                            viewWindow: {
+                              min: [7, 0, 0],
+                              max: [17, 0, 0]
+                            }
+                          },
+                          vAxis: {
+                            title: 'Value'
+                          }
+                        };
+                        process3();
+                        process3();
+                        process3();
+           
+
+                        var chart = new google.visualization.ColumnChart(
+                          document.getElementById('chart_div'));
+
+                        chart.draw(data, options);                     
+                                      };
+                                       process4();
+
+            outputYoutubeLink(array.url);
+            outputPopularity(json_data);
+            outputClassImage(array.predicted_class);
+
+                  $('#loading').hide();}   
+
+                  else
+                {
+                  error = array.error;
+                  displayError(error);
+                  $('#loading').hide();
+                }  
+
+              }},         
+              error: function() 
+              { $(this).html("error!");
+               $('#loading').hide();
+              }
+            });$('#loading').show();
+        });
+      </script>
+
+
+
+</body>
+</html>

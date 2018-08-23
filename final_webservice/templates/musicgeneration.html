@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MUSIC COMPOSER</title>
+    <title>MUSIC COMPOSER</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{url_for('static', filename="css/main.css")}}"/>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+
+<body>
+ <section class = "banner full"> 
+  <article class = "visible top" style = "background-image: url({{url_for('static', filename='pop5.jpg')}});">
+  <img src="{{url_for('static', filename='pop0.jpg')}}" alt="">
+    <div class="inner">
+      <header>
+      <p>A demo concept by <a href="www.datamonk.co">DATAMONK.CO</a></p>
+      <bold><font size="12"  > AI MUSIC COMPOSER </font></bold>
+      </header>
+    </div>
+  </article>
+</section>
+<br /><br />
+
+<!-- FIRST SECTION -->
+  <section id="one" class="wrapper style2">
+    <div class="inner">
+      <div class="box">
+        <div class="box">
+          <div class = "content">
+            <div class="image fit" >
+              <img src="{{url_for('static', filename='ai4.jpg')}}" alt="" height="270" width="42">
+            </div>
+            <br>
+
+            <h2 class = "align-center"> AI MUSIC COMPOSER </h2>
+            <p > The aim of this project was to exploit the potential of time series model and their ability to generate self composed music when feeded with certain class of instrumental music styles. The following are the product of our brief work on the AI Music Composer. </p>
+            <form  id="upload-file" method = "post" enctype="multipart/form-data" >
+              <div class = "align-center" >
+                  <audio controls="controls" class = "align-center">
+
+                    <source src="{{url_for('static', filename='2.mp3')}}" type="audio/mpeg">
+            </audio>
+             <br>
+
+                <audio controls="controls" class = "align-center">
+
+                    <source src="{{url_for('static', filename='3.mp3')}}" type="audio/mpeg">
+            </audio>
+             <br>
+                <audio controls="controls" class = "align-center">
+
+                    <source src="{{url_for('static', filename='LSTM_music4Yiri2.mp3')}}" type="audio/mpeg">
+            </audio>
+             <br>
+              <audio controls="controls" class = "align-center">
+
+                    <source src="{{url_for('static', filename='LSTM_music3Yiri1.mp3')}}" type="audio/mpeg">
+            </audio>
+             <br>
+
+                
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+
+
+      
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+		<title>Datamonk</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<!-- <div class="l-subheader-cell at_left"><div class="w-img ush_image_1"><a class="w-img-h" href="http://www.datamonk.co/"><img class="for_default" src="http://www.datamonk.co/wp-content/uploads/2017/07/text_logo4.png" width="300" height="200" alt=""></a></div></div>
+ -->				<div class="logo"><a href="http://www.datamonk.co/">DataMonk.Co </a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="generic.html">Generic</a></li>
+					<li><a href="elements.html">Elements</a></li>
+				</ul>width="300" height="200" 
+			</nav>
+
+		<!-- Banner -->
+			<section class="banner full">
+				<article>
+					<img src="{{url_for('static', filename='monk.jpg')}}" alt="" />
+					<div class="inner">
+						<header>
+							<!-- <p>A free responsive web site template by <a href="www.datamonk.co"></a></p> -->
+							<h2>Datamonk.co</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="{{url_for('static', filename='cover1.jpeg')}}" height = "200" width = "1000" alt="" />
+					<div class="inner">
+						<header>
+							<!-- <p>A free responsive web site template by <a href="www.datamonk.co"></a></p> -->
+							<h2>Data Intellegence Services</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="{{url_for('static', filename='monk.jpg')}}" alt="" />
+					<div class="inner">
+						<header>
+							<!-- <p>A free responsive web site template by <a href="www.datamonk.co"></a></p> -->
+							<h2>Datamonk.co</h2>
+						</header>
+					</div>
+				</article>
+
+				<!-- <article>
+					<img src="{{url_for('static', filename='slide03.jpg')}}" alt="" />
+					<div class="inner">
+						<header>
+							<p>Sed cursus aliuam veroeros lorem ipsum nullam</p>
+							<h2>Tempus dolor</h2>
+						</header>
+					</div>
+				</article> -->
+				
+				<!-- <article>
+					<img src="{{url_for('static', filename='slide05.jpg')}}"  alt="" />
+					<div class="inner">
+						<header>
+							<p>Ipsum dolor sed magna veroeros lorem ipsum</p>
+							<h2>Lorem adipiscing</h2>
+						</header>
+					</div>
+				</article> -->
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper style2">
+				<div class="inner">
+					<div class="grid-style">
+
+						<div>
+							<div class="box">
+								<div class="image fit">
+									<img src="{{url_for('static', filename='basemusic.jpg')}}"  alt="" />
+								</div>
+								<div class="content">
+									<header class="align-center">
+										<p>upload a song, find it's genre and also get a recommended playlist</p>
+										<h2>BOOMBOX</h2>
+									</header>
+									<p> We used deep learning and classification techniques to predict the genre of the you upload. Further we played around with triplet loss and deep learning to recommend you a playlist you'll fall in love with </p>
+									<footer class="align-center">
+										<a id="open_recom" class="button alt" >Explore Now</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="box">
+								<div class="image fit">
+									<img src="{{url_for('static', filename='pop5.jpg')}}" alt="" height= "285"/>
+								</div>
+								<div class="content">
+									<header class="align-center">
+										<p>Enter a name of a hollywood song and know how popular it is</p>
+										<h2>POPULARITY PREDICTOR</h2>
+									</header>
+									<p> We crawled spotify for its audio features of almost all the songs released in year 2017 and 2018, performed extensive classification and regression task to predict the popularity of your favourite song.</p>
+									<footer class="align-center">
+										<a id="open_predictor" class="button alt">Explore Now</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="box">
+								<div class="image fit">
+									<img src="{{url_for('static', filename='pop0.jpg')}}" alt="" height= "285"/>
+								</div>
+								<div class="content">
+									<header class="align-center">
+										<h4>When AI composes a piece of art</h4>
+										<h2>MUSIC COMPOSER</h2>
+									</header>
+									<p>To produce the AI composed music we trained time series model with numerous classical music pieces from various famous artists from Mozart to Yiruma</p>
+									<footer class="align-center">
+										<a id="open_composer" class="button alt">Explore Now</a>
+									</footer>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+		<!-- Two -->
+			<section id="two" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<h4>Data Intellegence Services</h4>
+						<p></p>
+						<h3>Deep Learning, Machine Learning, NLP, Data Mining, BlockChain, Big Data Experts</h3>
+					</header>
+				</div>
+			</section>
+
+		<!-- Three -->
+			<!-- <section id="three" class="wrapper style2">
+				<div class="inner">
+					<header class="align-center">
+						<p class="special">Nam vel ante sit amet libero scelerisque facilisis eleifend vitae urna</p>
+						<h2>Morbi maximus justo</h2>
+					</header>
+					<div class="gallery">
+						<div>
+							<div class="image fit">
+								<a href="{{url_for('static', filename='musicgeneration.html')}}"><img src="{{url_for('static', filename='pop1.jpg')}}" alt="" /></a>
+							</div>
+						</div> -->
+						<!-- <div>
+							<div class="image fit">
+								<a href="musicgeneration.html"><img src="{{url_for('static', filename='pic02.jpg')}}" alt="" /></a>
+							</div>
+						</div> -->
+					<!-- 	<div>
+							<div class="image fit">
+								<a href="#"><img src="{{url_for('static', filename='pic03.jpg')}}" alt="" /></a>
+							</div>
+						</div> -->
+						<!-- <div>
+							<div class="image fit">
+								<a href="#"><img src="{{url_for('static', filename='pic04.jpg')}}" alt="" /></a>
+							</div>
+						</div> -->
+					</<!-- div>
+				</div>
+			</section>
+ -->
+
+		<!-- Footer -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="http://www.datamonk.co/#services" class="fa fa-handshake-o"><span class="label">Services</span></a></li>
+						<li><a href="http://www.datamonk.co/#projects" class="fa fa-laptop"><span class="label">Projects</span></a></li>
+						<li><a href="http://www.datamonk.co/#contact" class="fa fa-phone"><span class="label">Contact</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; 2017 Altum Business Solutions Pvt. Ltd.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+			<script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+			<script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+			<script src="{{url_for('static', filename='js/util.js')}}"></script>
+			<script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+
+
+
+			<script>
+			$('#open_recom').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: '/genre-recom/',
+					success: function(e) {
+						window.location.href = "genre-recom";	}				
+				});
+			});
+		</script>
+
+		<script>
+			$('#open_predictor').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: '/open-predictor/',
+					success: function(e) {
+						window.location.href = "open-predictor";	}				
+				});
+			});
+		</script>
+
+		<script>
+			$('#open_composer').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: '/open-composer/',
+					success: function(e) {
+						window.location.href = "open-composer";	}				
+				});
+			});
+		</script>
+
+	</body>
+</html>

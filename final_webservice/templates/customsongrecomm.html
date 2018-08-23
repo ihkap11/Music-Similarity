@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MUSIC SIMILARITY</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{url_for('static', filename="css/main.css")}}"/>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+
+<body>
+     <section class = "banner full"> 
+        <article class = "visible top" style = "background-image: url({{url_for('static', filename='basemusic.jpg')}});"> <img src="{{url_for('static', filename='basemusic.jpg')}}" alt="">
+         <div class="inner">
+           <header>
+            <p>A demo concept by <a href="www.datamonk.co">DataMonk.Co</a></p>
+            <bold>
+              <font size="12"  >MUSIC GENRE PREDICTION </font>
+              <br><font </size="10">&amp; <br></font>
+              <font size="12">RECOMMENDATION SYSTEM</font>
+            </bold>
+          </header>
+         </div>
+        </article>
+     </section>
+     <br /><br />
+
+
+     <!-- FIRST SECTION -->
+     <!-- SONG GENRE FINDER SERVICE -->
+        <section id="one" class="wrapper style2">
+            <div class="inner">          
+                  <div class="box">
+                    <div class="box">
+                      <div class = "content">
+
+                        <div class="image fit" >
+                          <img src="{{url_for('static', filename='genre3.jpg')}}" alt="" height="280" width="42">
+                        </div><br>
+
+                        <h2 class = "align-center"> GENRE FINDER </h2>
+                        <form  id="upload-file" method = "post" enctype="multipart/form-data" >                       
+                          <div class = "align-center" class="form-group">
+                            <label class="col-sm-5">Please upload your 'mp3' audio file.</label>
+
+                            <div class="button alt">
+                              <input type="file" name="audio_file" placeholder="file" class="form-control" required="true">
+                            </div>
+
+                            <div class="form-group"><br>
+                              <div id="predict-genre" align = "align-center"class="button alt" >Predict Genre of the Song</div> 
+                            </div>
+                            <div id="loading" style="display:none;">
+                              <img src="{{url_for('static', filename='loader.gif')}}" alt="" />
+                              <div id = "text"></div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class=box>
+                      <div class="content" class = "align-center">
+                      <div class = "align-center" id="chart_div" class="col-sm-5" ><label></label></div>
+                      <div class = "align-center" id ="genre" class="col-sm-5" ><label></label></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+
+	    <script type="text/javascript">
+	      function outputGenre(data)
+	      {console.log(data);
+         process3();
+	       alert("Your genre prediction is ready!!");
+	       document.getElementById("genre").innerHTML = "<p><b>Predicted Genre: " + data +"</b></p>";
+	      }
+	    </script> 
+
+      <script type="text/javascript">
+        function displayError(error)
+        {
+         alert(error);
+        }
+      </script>
+
+      <script>
+                              var myVar = setInterval(process1, 5000);
+                              function process1() {
+                                  document.getElementById("text").innerHTML = "Uploading your song...";
+                              }
+
+                              var myVar = setInterval(process2, 5000);
+                              function process2() {
+                                  document.getElementById("text").innerHTML = "Processing your song...";
+                              }
+
+
+                              var myVar = setInterval(process3, 5000);
+                              function process3() {
+                                  document.getElementById("text").innerHTML = "Working on your predictions...";
+                              }
+
+
+                              var myVar = setInterval(process4, 5000);
+                              function process4() {
+                                  document.getElementById("text").innerHTML = "Finalizing your predictions...";
+                              }
+
+                              
+
+                              </script> 
+	    
+	    <style>
+	      #loading 
+	      {position: absolute; width: 100%; height: 100%; background: url("{{url_for('static', filename='loader.gif')}}") no-repeat center center;}
+	    </style>
+
+	    <script type="text/javascript">
+	      $("#predict-genre").click(function(e)
+	        { e.preventDefault();
+	          alert("Your song is being uploaded");          
+	          var form_data = new FormData($('#upload-file')[0])
+	          var myData= {};
+	          $('#loading').show();
+            process1();
+            process2();
+	          $.ajax({
+	            type: 'POST',
+	            async: true,
+	            url: "/predictGenre",
+	            data: form_data,
+	            crossDomain: true,
+	            processData: false,
+	            contentType: false,
+	            mimeType: "multipart/form-data",
+	            success: function(json_data)
+	            {if(json_data)
+	              {process1();
+	               console.log(json_data);
+	       		   var array = JSON.parse(json_data);
+               if (array.error == 0)
+               {
+	       		      console.log(array.pydata);
+	                google.charts.load('current', {'packages':['corechart']});
+		      		    google.charts.setOnLoadCallback( function drawChart()
+		      		    {	console.log(array.pydata)
+				            var data = new google.visualization.arrayToDataTable(array.pydata);
+						        var options = {	title: 'GENRE CLASSIFICATION',is3D: true,};
+				            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				            chart.draw(data,options, {width: 400, height: 240});
+				          });
+                  
+					        outputGenre(array.genre); 
+	                $('#loading').hide();
+                }  
+                else
+                { process3();
+
+                  error = array.error;
+                  displayError(error);
+                  $('#loading').hide();
+                }   
+                process4();       
+	            }},        
+	            error: function() 
+	            { $(this).html("error!");
+	              $('#loading').hide();
+	            }
+
+	          });$('#loading').show();
+	      });
+	    </script>
+
+
+
+
+	<!--   SECOND SECTION -->
+	<!-- SONG RECOMMENDATION SERVICE -->
+
+        <section id="two" class="wrapper style2">
+            <div class="inner">          
+                  <div class="box">
+                    <div class="box">
+                      <div class = "content">
+                        <div class="image fit" >
+                          <img src="{{url_for('static', filename='recom1.jpg')}}" alt="" height="280" width="42">
+                        </div><br>
+                        <h2 class = "align-center"> PLAYLIST RECOMMENDER </h2>
+                        <form  id="upload-file1" method = "post" enctype="multipart/form-data" >                       
+                          <div class = "align-center" class="form-group">
+                            <label class="col-sm-5">Please upload your 'mp3' audio file.</label>
+                            <div class="button alt">
+                              <input type="file" name="audio_file1" placeholder="file" class="form-control" required="true">
+                            </div>
+                            <div class="form-group"><br>
+                              <div id="recom-playlist" align = "align-center"class="button alt" >Recommend me a Playlist</div> 
+                            </div>
+                            <div id="loading1" style="display:none;">
+                              <img src="{{url_for('static', filename='loader.gif')}}" alt="" /> <div id = "textr"></div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class=box>
+                      <div class="content" class = "align-center">
+                      
+                      <div class = "align-center" class="col-sm-5" id ="recom-list"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+
+ 	    
+	    
+	    <style>
+	      #loading 
+	      {position: absolute; width: 100%; height: 100%; background: url("{{url_for('static', filename='loader.gif')}}") no-repeat center center;}
+	    </style>
+
+
+
+	     <script type="text/javascript">
+			function outputRecommendations(json_data){
+				var whole_data = JSON.parse(json_data);
+        var data = whole_data.data
+        var urls = whole_data.urls
+
+				console.log(data);
+				alert("Your recommendations are getting ready!!");
+		
+				var len = 6;
+                var txt = "";
+                if(len > 0){
+                    for(var i=0;i<len;i++){
+                        if(data[i]){
+
+                            txt += '<ul style:"list-style: none;"><li style:"list-style: none;"><b>'+data[i]+"</b></li>"+
+                            '<li style:"list-style: none;"><iframe src='+'"'+ urls[i] +'"'+ 'frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">'+"</iframe></li></ul>";
+                            
+                        }
+                    }
+                    if(txt != ""){
+                        $("#recom-list").append(txt).removeClass("hidden");
+                    }
+                }
+	$("#recom-list").html()
+            }
+</script>
+
+
+
+<script>
+                              var myVar = setInterval(process1r, 5000);
+                              function process1r() {
+                                  document.getElementById("textr").innerHTML = "Uploading your song...";
+                              }
+
+                              var myVar = setInterval(process2r, 5000);
+                              function process2r() {
+                                  document.getElementById("textr").innerHTML = "Processing your song...";
+                              }
+
+
+                              var myVar = setInterval(process3r, 5000);
+                              function process3r() {
+                                  document.getElementById("textr").innerHTML = "Working on your predictions...";
+                              }
+
+
+                              var myVar = setInterval(process4r, 5000);
+                              function process4r() {
+                                  document.getElementById("textr").innerHTML = "Finalizing your predictions...";
+                              }
+
+                              
+
+                              </script> 
+
+
+ <script type="text/javascript">
+        function displayError(error)
+        {
+         alert(error);
+        }
+      </script> 
+	    <script type="text/javascript">
+	      $("#recom-playlist").click(function(e)
+	        { e.preventDefault();
+	          alert("Your song is being uploaded"); 
+            process1r();
+            process1r();  
+            process1r();
+            process1r(); 
+            process1r();
+            process1r(); 
+            process1r();
+            process1r();        
+            process1r();
+            process1r(); 
+            process1r();
+            process1r(); 
+	          var form_data = new FormData($('#upload-file1')[0])
+	          var myData= {};
+	          $('#loading1').show();
+            process1r();
+            process1r();
+	          $.ajax({
+	            type: 'POST',
+	            async: true,
+	            url: "/recommendations",
+	            data: form_data,
+	            crossDomain: true,
+	            processData: false,
+	            contentType: false,
+	            mimeType: "multipart/form-data",
+	            success: function(json_data)
+	            {if(json_data)
+                process2r();
+                process2r();
+                process2r();
+                process3r();
+                process3r();
+                process3r();
+                process3r();
+                process3r();
+                process3r();
+	              {console.log(json_data);
+               
+                  var array = JSON.parse(json_data);
+                  process3r();
+               if (array.error == 0)
+               { 
+	               console.log(json_data);
+               
+	       		   var array = JSON.parse(json_data);
+	               outputRecommendations(json_data); 
+	               $('#loading1').hide()
+	               ;}                
+	            
+             else
+                {process3r();
+                  error = array.error;
+                  displayError(error);
+                  $('#loading1').hide();
+                }    
+              }},         
+	            error: function() 
+	            { $(this).html("error!");
+	              $('#loading1').hide();
+	            }
+	          });$('#loading1').show();
+            process3r();
+            process3r();
+            
+	      });
+	    </script>
+
+</body>
+
+</html>
